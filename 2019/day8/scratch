@@ -1,0 +1,31 @@
+
+i = 0
+while i < len(image_data)
+	while r0,r++,r<6
+		#This is a new row
+		
+		while c0,c++,c<25
+			i+=1
+			#this is a new pixel
+			#keep adding pixels till we hit 25 width (24 as inc 0)
+
+		#We've compelted the row new line
+	
+	#Weve completed the layer
+
+#we've completed the image
+
+
+
+layer: {(rowdata)}
+0: {(row1)(row2)(row3)(row4)(row5)(row6)}
+
+
+lowerst_0_count_layer = 0
+for each layer
+	#if less 0's than the previous node the layer id
+
+ones = count 1s in layers[lowerst_0_count_layer]
+twos = count 2s in layers[lowerst_0_count_layer]
+
+return (ones * twos)
