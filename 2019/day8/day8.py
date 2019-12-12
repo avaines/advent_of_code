@@ -168,4 +168,4 @@ p1 = part1(puzzle_input, puzzle_width, puzzle_height)
 p2 = part2(p1[1],puzzle_width,puzzle_height)
 print("part1:", p1[0])
 
-print(p2)
+print("part2:\n",p2)
