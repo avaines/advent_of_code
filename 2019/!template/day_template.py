@@ -1,7 +1,4 @@
-"""
-task summary/notes
-""" 
-
+from intcode import intcode_computer
 import fileinput
 
 puzzle_input = list(fileinput.input('sample1.txt'))
