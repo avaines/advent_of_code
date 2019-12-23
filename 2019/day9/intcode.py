@@ -6,6 +6,7 @@ class intcode_computer:
     def __init__(self, puzzle_input_s):
         self.puzzle_input = [int(x) for x in puzzle_input_s]
         self.last_output = []
+        self.output = []
         self.op_code = 0
 
         # ProgramCounter
@@ -135,7 +136,8 @@ class intcode_computer:
             # output the value in position a
             # skip to self.pc+2
             if self.op_code == 4:
-                self.last_output.append(self.puzzle_input[param_1])
+                self.last_output = self.puzzle_input[param_1]
+                self.output.append(self.puzzle_input[param_1])
                     # print(self.last_output)
                 # else:
                 #    print("Something went wrong and the last output was not 0")
@@ -241,7 +243,7 @@ class intcode_computer:
 
 
         # if 99 stop
-        return self.last_output
+        return self.output
 
 
     def op_code_split(self, instruction):
