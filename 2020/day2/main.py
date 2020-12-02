@@ -4,14 +4,15 @@ task summary/notes
 
 import fileinput
 import collections
+from operator import xor
 
 def log(part, input):
     if p1_log and part == 1:
         print(input)
-    
+
     if p2_log and part == 2:
         print(input)
-    
+
 
 def part1(puzzle_input):
     valid_pws_count = 0
@@ -49,13 +50,8 @@ def part2(puzzle_input):
         boundaries = meta[0].split("-")
         req_char = meta[1]
 
-        if password[int(boundaries[0])-1] == req_char and password[int(boundaries[1])-1] != req_char:
+        if xor(password[int(boundaries[0])-1] == req_char, password[int(boundaries[1])-1] == req_char):
             print("GOOD", password,password[int(boundaries[0])-1],int(boundaries[0]),"=", req_char, ", or is",password[int(boundaries[1])-1],int(boundaries[1]),"=", req_char)
-            log(2, password + " is ok")
-            valid_pws_count += 1
-
-        elif password[int(boundaries[0])-1] != req_char and password[int(boundaries[1])-1] == req_char:
-            print("GOOD",password,password[int(boundaries[0])-1],int(boundaries[0]),"=", req_char, ", or is",password[int(boundaries[1])-1],int(boundaries[1]),"=", req_char)
             log(2, password + " is ok")
             valid_pws_count += 1
 
