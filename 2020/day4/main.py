@@ -145,7 +145,7 @@ def part2(passport_list, debug):
         if "pid" in passport:
             if debug: print ("\tpassport id found")
             # a nine-digit number, including leading zeroes.
-            if re.search('[a-zA-Z0-9]{9}', passport['pid'] ):
+            if re.search('[0-9]{9}$', passport['pid'] ):
                 if debug: print ("\t\tthe passport id is valid")
             else:
                 if debug: print ("\t\tthe passport id is INVALID")
