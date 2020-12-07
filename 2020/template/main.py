@@ -13,7 +13,7 @@ def part2(input, debug):
 
 
 with open('input.txt', 'r') as myfile:
-    puzzle_input = myfile.read()
+    puzzle_input = myfile.read().split("\n")
 
 p1 = part1(puzzle_input, False)
 p2 = part2(puzzle_input, False)
