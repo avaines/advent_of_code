@@ -2,53 +2,45 @@
 Day X: Title
 """
 import fileinput
-import collections
+import itertools
 
 
-def part1(puzzle_input, debug):
-    preamble = 5
-    weak_value = 0
+def part1(puzzle_input, preamble, debug):
 
-    for l in range(preamble, len(puzzle_input)):
-        checksum = puzzle_input[l - preamble : l]
-        if debug: print("current pointer is ",puzzle_input[l],"- current checksum is", checksum)
+    for i in range (preamble, len(puzzle_input)):
+        solution_found = False
+        checksum = [ int(x) for x in puzzle_input[i - preamble : i] ]
 
-        for check_a in checksum:
-            check_a = int(check_a)
+        for combos in itertools.combinations(checksum, 2):
+            if debug: print("current pointer is ",puzzle_input[i],"- current checksum is", combos)
+            if sum(combos) == int(puzzle_input[i]):
+                solution_found = True
+                break
 
-            for check_b in checksum:
-                check_b = int(check_b)
+        if not solution_found:
+            return int(puzzle_input[i])
 
-                if check_a == check_b: continue # Not sure about this?
-
-                if debug: print("Checking ",puzzle_input[l],"- current checksum is", check_a, "+", check_b, "(", check_a + check_b, ")")
-
-                if check_a + check_b != puzzle_input[l]:
-                    weak_value = puzzle_input[l]
-                else:
-                    if debug: print("Checksum found ",puzzle_input[l],"- current checksum is", check_a, "+", check_b, "(", check_a + check_b, ")")
-                    # these two do add up, so this index is sane
-                    weak_value = 0
-                    break
-
-            if weak_value != 0 and check_a == checksum[-1]:
-                # Nothing in index's checksum worked
-                if debug: print(puzzle_input[l], "is insecure")
-
-
-
-    return weak_value
-
-
-def part2(input, debug):
     return 0
 
 
-with open('sample.txt', 'r') as myfile:
+def part2(puzzle_input, bad_val, debug):
+    for i in range(len(puzzle_input)):
+        for l in range(i, len(puzzle_input)):
+            checksum = [ int(x) for x in puzzle_input[i : l+1] ]
+
+            if sum(checksum )== bad_val:
+                return min(checksum) + max(checksum)
+
+    return 0
+
+
+with open('input.txt', 'r') as myfile:
     puzzle_input = myfile.read().split("\n")
 
-p1 = part1(puzzle_input, True)
-p2 = part2(puzzle_input, False)
+preamble = 25
+
+p1 = part1(puzzle_input, preamble, False)
+p2 = part2(puzzle_input, p1, True)
 
 print("#############################################################")
 print("Part1:", p1 )
