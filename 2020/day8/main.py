@@ -3,59 +3,87 @@ Day 8: Handheld Halting
 """
 import fileinput
 import collections
-
-import copy
-
-class assembler():
-    def __init__(self, puzzle_input_raw_lines, debug):
-        if debug:print("Assembler initialising...")
+class assembler_state():
+    # Seperation of conserns.
+    # This is a state of the computer, think VM memory
+    def __init__(self, assembler_code, debug):
+        if debug:print("Assembler state initialised...")
         self.debug = debug
 
         #Break the lines up with list comprehension rather than a set of for loops
-        self.assembler_code = [tuple(line.split(" ")) for line in puzzle_input_raw_lines]
+        self.assembler_code = assembler_code
         self.accumulator = 0
         self.visited = [False for x in self.assembler_code]
         self.pointer = 0
 
-    def execute(self):
+class assembler_executor():
+    # This will now take a 'state' as  parameter to allow multiple computers
+    def execute(self, state):
         # loop through a list from 0 to length of the input/code as long as
         # the current pointer isnt in the list of visited operations
-        while (0 <= self.pointer < len(self.assembler_code) and (not self.visited[self.pointer])):
+        while (0 <= state.pointer < len(state.assembler_code) and (not state.visited[state.pointer])):
 
             #Get current operation at the pointer
-            instruction, argument = operation = self.assembler_code[self.pointer]
-            if self.debug:print("Current operation:",self.pointer, operation)
+            instruction, argument = operation = state.assembler_code[state.pointer]
+            if state.debug:print("Current operation:",state.pointer, operation)
 
             #Mark this operation as visited
-            self.visited[self.pointer] = True
+            state.visited[state.pointer] = True
 
             if instruction == "nop":
-                self.pointer +=1
+                state.pointer +=1
                 continue
 
             if instruction == "acc":
-                if argument[0]=="-": self.accumulator -= int(argument[1:])
-                if argument[0]=="+": self.accumulator += int(argument[1:])
-                self.pointer += 1
+                state.accumulator += int(argument)
+                state.pointer += 1
 
             if instruction == "jmp":
-                if argument[0]=="-": self.pointer -= int(argument[1:])
-                if argument[0]=="+": self.pointer += int(argument[1:])
-                else:
-                    if self.debug:print("Something went wrong with the JMP operation in", operation)
+                state.pointer += int(argument)
 
-        return self.accumulator
+            if state.pointer >= len(state.assembler_code):
+                if state.debug:print("Executor has execute after:", state.pointer, operation)
+                return 99999999, state.accumulator
+
+        return 0, state.accumulator
+
 
 def part1(input, debug):
-    games_console = assembler(input, debug)
-    return games_console.execute()
+    #Break the lines up with list comprehension rather than a set of for loops
+    code = [tuple(line.split(" ")) for line in input]
+    state = assembler_state(code, debug)
+
+    return games_console.execute(state)[1]
 
 def part2(input, debug):
+    code = [tuple(line.split(" ")) for line in input]
+
+    for i in range(0, len(code)):
+
+        if code[i][0] == "nop":
+            code[i] = ("jmp", code[i][1])
+        elif code[i][0] == "jmp":
+            code[i] = ("nop", code[i][1])
+
+        # Create a new memory state using these changes
+        state = assembler_state(code, debug)
+        game_console_result = games_console.execute(state)
+
+        if game_console_result[0] == 99999999:
+            if debug: print("Found the result by changing instruction at line: ", i )
+            return game_console_result[1]
+
+        # Reset things and go again
+        code = [tuple(line.split(" ")) for line in input]
+        i +=1
+
     return 0
 
-with open('sample.txt', 'r') as myfile:
+
+with open('input.txt', 'r') as myfile:
     puzzle_input = myfile.read().split("\n")
 
+games_console = assembler_executor()
 p1 = part1(puzzle_input, False)
 p2 = part2(puzzle_input, False)
 
