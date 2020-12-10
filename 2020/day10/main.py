@@ -27,10 +27,19 @@ def part1(puzzle_input, debug):
 
 
 def part2(puzzle_input, debug):
-    # process puzzle_input
-    # implement algorithm i dont know about
-    # ???
-    return "profit"
+    # Re-purposed the Dynamic programming approach from https://leetcode.com/problems/climbing-stairs/solution/
+    # print(f'Answer: {ans[puzzle_input[-1]]}')
+    puzzle_input.sort()
+    puzzle_input.append( max( puzzle_input ) + 3 )
+
+    dp = {}
+    dp[0] = 1
+    for adapter in puzzle_input:
+        # The get() method returns the value of the item with the specified key. get(REQ:Keyname, OPT:Value to return if the key doesnt exist)
+        dp[adapter] = dp.get(adapter -1, 0) + dp.get(adapter - 2, 0) + dp.get(adapter - 3, 0)
+        if debug: print("found another combination, were up to:", dp[adapter])
+
+    return dp[puzzle_input[-1]]
 
 
 with open('input.txt', 'r') as myfile:
