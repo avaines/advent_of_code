@@ -1,59 +1,43 @@
 const filepath = "./input.txt"
+const aoc = require("../shared/functions");
 
-function readTextSync(filename){
-  fs = require('fs');
-  return fs.readFileSync(filename).toString().split("\n");
-}
-
-function day1(inputList){
+function part1(inputList, DEBUG){
     let numOfIncreases = 0
-    let previousValue = parseInt(inputList[0])
+    let previousValue = inputList[0]
 
     for (let i=1; i < inputList.length; i++) {
-        let currentValue = parseInt(inputList[i])
+        let currentValue = inputList[i]
 
         if (currentValue > previousValue) {
-            // console.log(`%i is greater than %i`,currentValue, previousValue )
+            DEBUG && console.log(`%i is greater than %i`,currentValue, previousValue )
             numOfIncreases ++
         } else {
-            // console.log(`%i is less than %i`,currentValue, previousValue )
+            DEBUG && console.log(`%i is less than %i`,currentValue, previousValue )
         }
-        
-        // Move on to the next one
+
         previousValue = currentValue
-        
     }
     return numOfIncreases
 }
 
 
-function day2(inputList){
+function part2(inputList, DEBUG){
     let newList = []
 
     for (let i=0; i < inputList.length -2 ; i++) {
-        let m1 = parseInt(inputList[i])
-        let m2 = parseInt(inputList[i+1])
-        let m3 = parseInt(inputList[i+2])
+        let m1 = inputList[i]
+        let m2 = inputList[i+1]
+        let m3 = inputList[i+2]
 
         newList.push(m1+m2+m3)
-        
     }
-
     return newList
 }
 
+let myInput = aoc.readTextToListInt(filepath)
+let part1Answer = part1(myInput, false)
+let part2List = part2(myInput, false)
+let part2Answer = part1(part2List, false)
 
-let myList = readTextSync(filepath, true)
-let day1Answer = day1(myList)
-let day2List = day2(myList)
-let day2Answer = day1(day2List)
-
-console.log("Day1: " + day1Answer )
-console.log("Day2: " + day2Answer )
-
-
-
-// ToDo for tomorrow:
-// Load a list of numbers, not string
-// conditional output messages
-// central shared functions
+console.log("part1: " + part1Answer )
+console.log("part2: " + part2Answer )
