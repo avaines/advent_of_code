@@ -1,5 +1,5 @@
 const filepath = "./input.txt"
-const aoc = require("../shared/functions");
+const aocHelpers = require("../shared/functions");
 
 function part1(inputList, DEBUG){
     let numOfIncreases = 0
@@ -34,7 +34,7 @@ function part2(inputList, DEBUG){
     return newList
 }
 
-let myInput = aoc.readTextToListInt(filepath)
+let myInput = aocHelpers.readTextToListInt(filepath)
 let part1Answer = part1(myInput, false)
 let part2List = part2(myInput, false)
 let part2Answer = part1(part2List, false)

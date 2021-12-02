@@ -1,5 +1,6 @@
 const filepath = "./input.txt"
-const aoc = require("../shared/functions");
+const aocHelpers = require("../shared/functions");
+// const aocClasses = require("../shared/submarine");
 
 
 function part1(inputList, DEBUG){
@@ -14,7 +15,7 @@ function part2(inputList, DEBUG){
 }
 
 
-let myInput = aoc.readTextToListInt(filepath)
+let myInput = aocHelpers.readTextToListInt(filepath)
 let part1Answer = part1(myInput, true)
 let part2Answer = part2(myInput, false)
 
