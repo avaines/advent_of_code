@@ -1,9 +1,12 @@
+const aocHelpers = require("./functions");
 class Submarine {
     constructor(depth, position, aim, DEBUG) {
         this.depth = depth
         this.position = position
         this.aim = aim
         this.DEBUG = DEBUG
+
+        this.powerConsumption = 0
     }
 
     status() {
@@ -36,6 +39,26 @@ class Submarine {
 
     }
 
+    diagnostics(report){
+        let gammaRate = "" // most common (Mode) bit in each position
+        let epsilonRate = "" // least common (anti-mode?) bit in each position
+
+        for (let i=0; i < report[0].length; i++) {
+
+            // Using a map 'vertically select' the nth column and workout the most/least common value
+            let x = report.map((entry) => entry[i])
+
+            // Gamma rate is assembled from the MOST common bit in the current column
+            gammaRate += aocHelpers.getFrequent(x).pop()
+            
+            // Epsilon rate is assembled from the LEAST common bit in the current column
+            epsilonRate += aocHelpers.getFrequent(x,true).shift()
+            
+        }
+        this.DEBUG && console.log(`GammaRate: %s (%i)  |  EpsilonRate: %s (%i)`, gammaRate, parseInt(gammaRate,2), epsilonRate, parseInt(epsilonRate,2))
+        this.powerConsumption = parseInt(gammaRate,2) * parseInt(epsilonRate,2)
+    }
+
 }
 
-module.exports = { Submarine: Submarine }
+module.exports = { Submarine }

@@ -1,4 +1,4 @@
-const filepath = "./input.txt"
+const filepath = "./sample.txt"
 const aocHelpers = require("../shared/functions");
 // const aocClasses = require("../shared/submarine");
 
