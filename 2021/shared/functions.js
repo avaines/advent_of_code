@@ -14,24 +14,6 @@ function readTextToListInt(filename){
 }
 
 
-
-// Bad ideas be here:
-
-// Asynchronously read a file
-function readTextAsync(filename){
-  return new Promise((resolve, reject) => {
-    fs = require('fs');
-
-    fs.readFile(filename, 'utf8', (err,data) => {
-      if (err) {
-        reject(err);
-      }
-      resolve(data.split("\n"));
-    });
-  });
-}
-
-
 function getFrequent(array, leastFrequent=false) {
   if (array.length == 0) return null;
 
@@ -84,5 +66,4 @@ module.exports = {
   getFrequent,
   readTextToList,
   readTextToListInt,
-  readTextAsync,
 };

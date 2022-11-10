@@ -130,6 +130,9 @@ class Submarine {
 
     }
 
+    bingo(numbers, cards){
+    }
+
 }
 
 module.exports = { Submarine }
