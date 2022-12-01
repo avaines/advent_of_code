@@ -1,14 +1,13 @@
-"""
-Day X: Title
-"""
+import os
+
 INPUT_DEBUG = True
 P1_DEBUG    = True
 P2_DEBUG    = True
 
 USE_REAL_DATA = False # Loads input.txt when True or sample.txt when False
 
-INPUT_FILENAME  = "./input.txt"
-SAMPLE_FILENAME = "./sample.txt"
+INPUT_FILENAME  = "%s/input.txt" % os.path.dirname(os.path.realpath(__file__))
+SAMPLE_FILENAME = "%s/sample.txt" % os.path.dirname(os.path.realpath(__file__))
 
 
 def input_parser(input):
