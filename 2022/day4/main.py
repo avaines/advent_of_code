@@ -31,7 +31,7 @@ def part1(input):
     subsets = 0
     for elf_pair in input:
         if set(elf_pair[0]).issubset(elf_pair[1]) or set(elf_pair[1]).issubset(elf_pair[0]):
-            if P1_DEBUG: print("found a subset", elf_pair)
+            if P1_DEBUG: print("Found a subset", elf_pair)
             subsets += 1
     return subsets
 
@@ -40,7 +40,7 @@ def part2(input):
     subsets = 0
     for elf_pair in input:
         if set(elf_pair[0]).intersection(elf_pair[1]) or set(elf_pair[1]).intersection(elf_pair[0]):
-            if P2_DEBUG: print("found a subset", elf_pair, )
+            if P2_DEBUG: print("Found an intersection in", elf_pair, )
             subsets += 1
     return subsets
 
