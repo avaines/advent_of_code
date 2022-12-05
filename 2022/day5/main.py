@@ -116,4 +116,3 @@ if __name__ == '__main__':
 
     part_2 = part2(crate_map, instructions)
     print("Part2:", part_2 )
-6

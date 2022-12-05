@@ -54,3 +54,4 @@ Code from my attempts at the Advent of Code challenges
 |  2   | :star:       | :star:       |
 |  3   | :star:       | :star:       |
 |  4   | :star:       | :star:       |
+|  5   | :star:       | :star:       |
