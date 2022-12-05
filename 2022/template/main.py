@@ -27,11 +27,12 @@ if __name__ == '__main__':
     with open(INPUT_FILENAME if USE_REAL_DATA else SAMPLE_FILENAME, 'r') as input_file:
         parsed_input = input_parser(input_file.read().split("\n"))
 
-    part_1 = part1(parsed_input)
-
-    part_2 = part2(parsed_input)
-
     print()
     print("# # # SOLUTIONS # # #")
+
+    part_1 = part1(parsed_input)
     print("Part1:", part_1 )
+    print()
+    
+    part_2 = part2(parsed_input)
     print("Part2:", part_2 )
