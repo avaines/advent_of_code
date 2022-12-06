@@ -1,31 +1,35 @@
 import os
 
+# Import the communications_system class
+import sys
+sys.path.append("../")
+from shared.device import Communications_System
+
 INPUT_DEBUG = True
 P1_DEBUG    = True
-P2_DEBUG    = True
+P2_DEBUG    = False
 
-USE_REAL_DATA = False # Loads input.txt when True or sample.txt when False
+USE_REAL_DATA = True # Loads input.txt when True or sample.txt when False
 
 INPUT_FILENAME  = "%s/input.txt" % os.path.dirname(os.path.realpath(__file__))
 SAMPLE_FILENAME = "%s/sample.txt" % os.path.dirname(os.path.realpath(__file__))
 
 
 def input_parser(input):
-    if INPUT_DEBUG: print("Parsing the input")
     return input
 
 def part1(input):
-    if P1_DEBUG: print("Doing Part 1 things")
-    return "part 1 answer"
+    device = Communications_System(input, P1_DEBUG)
+    return device.start_of_packet_marker
 
 def part2(input):
-    if P2_DEBUG: print("Doing Part 2 things")
-    return "part 2 answer"
+    device = Communications_System(input, P2_DEBUG)
+    return device.start_of_message_marker
 
 
 if __name__ == '__main__':
     with open(INPUT_FILENAME if USE_REAL_DATA else SAMPLE_FILENAME, 'r') as input_file:
-        parsed_input = input_parser(input_file.read().split("\n"))
+        parsed_input = input_parser(input_file.read())
 
     print()
     print("# # # SOLUTIONS # # #")
