@@ -64,7 +64,6 @@ def part2(input):
 
     return directory_size_of_deletion_candidate
 
-
 if __name__ == '__main__':
     with open(INPUT_FILENAME if USE_REAL_DATA else SAMPLE_FILENAME, 'r') as input_file:
         parsed_input = input_parser(input_file.read().split("\n"))
