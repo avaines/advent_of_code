@@ -31,7 +31,9 @@ class ElfComm3000():
         self.debug = debug
         self.cycle = 0
         self.inspection_cycles = inspection_cycles
-        self.crt_display = [[' ']*40 for _ in range(6)]
+        self.crt_width = 40
+        self.crt_height = 6
+        self.crt_display = [[' ']*self.crt_width for _ in range(self.crt_height)]
 
         self.register_x = 1
         self.signal_strength_at_inspection = []
@@ -56,14 +58,11 @@ class ElfComm3000():
             self.signal_strength_at_inspection.append(self.cycle * self.register_x)
 
     def crt_draw(self):
-        if self.register_x - 1 <= self.cycle % 40 <= self.register_x + 1:
-            self.crt_display[self.cycle // 40][self.cycle % 40] = '#'
+        if self.register_x - 1 <= self.cycle % self.crt_width <= self.register_x + 1:
+            self.crt_display[self.cycle // self.crt_width][self.cycle % self.crt_width] = '#'
 
         # if self.debug: print(self.crt_display)
 
     def crt_render(self):
-        rows = []
-        for row in self.crt_display:
-            rows.append("".join(row))
-
-        return "\n".join(rows)
+        # Join the row together, then join all the rows together with new lines
+        return "\n".join(["".join(x) for x in self.crt_display])
