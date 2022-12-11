@@ -1,6 +1,5 @@
 from re import search
 
-
 class Communications_System():
     def __init__(self, input, debug=False):
         self.datastream_buffer = list(input)
