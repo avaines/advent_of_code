@@ -1,3 +1,10 @@
+'''
+# Import the shared functions
+import sys
+sys.path.append("../shared")
+from device import CLASS
+'''
+
 from re import search
 
 class Communications_System():

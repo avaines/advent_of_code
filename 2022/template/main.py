@@ -1,3 +1,9 @@
+
+# Import AOC Common
+import sys
+sys.path.append("../shared")
+import aoc_common
+
 import os
 
 INPUT_DEBUG = True
@@ -24,8 +30,7 @@ def part2(input):
 
 
 if __name__ == '__main__':
-    with open(INPUT_FILENAME if USE_REAL_DATA else SAMPLE_FILENAME, 'r') as input_file:
-        parsed_input = input_parser(input_file.read().split("\n"))
+    parsed_input = aoc_common.import_file_single_new_line(INPUT_FILENAME if USE_REAL_DATA else SAMPLE_FILENAME)
 
     part_1 = part1(parsed_input)
     part_2 = part2(parsed_input)
