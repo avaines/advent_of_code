@@ -49,11 +49,6 @@ def part1(input):
     return sum(list(map(int, valid_games)))
 
 def part2(input):
-    # max_red_cubes=12
-    # max_green_cubes=13
-    # max_blue_cubes=14
-    # valid_games=[]
-    # invalid_games=[]
     game_power=[]
 
     for game in input:
