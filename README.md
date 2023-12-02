@@ -65,8 +65,8 @@ Code from my attempts at the Advent of Code challenges
 ## 2023
 | Day  | Part 1 | Part 2 |
 |------|--------|--------|
-|  1   |        |        |
-|  2   |        |        |
+|  1   | :star: | :star: |
+|  2   | :star: | :star: |
 |  3   |        |        |
 |  4   |        |        |
 |  5   |        |        |
