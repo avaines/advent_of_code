@@ -20,55 +20,6 @@ class engine():
         self.parts_with_adjacent_symbols=[]
         self.gear_adjacent_parts = collections.defaultdict(list)
 
-    def has_adjacent_gear(self, row_i, column_i):
-        def is_gear(char):
-            if char == '*':
-                return True
-            else:
-                return False
-
-        # Check above
-        if row_i > 0:
-            if is_gear(self.schematic[row_i -1][column_i]):
-                return [row_i -1, column_i]
-
-        # Check below
-        if row_i < len(self.schematic)-1:
-            if is_gear(self.schematic[row_i +1][column_i]):
-                return [row_i +1, column_i]
-
-        # Check left
-        if column_i > 0:
-            if is_gear(self.schematic[row_i][column_i -1]):
-                return [row_i, column_i -1]
-
-        # Check right
-        if column_i < len(self.schematic[0]) -1:
-            if is_gear(self.schematic[row_i][column_i +1]):
-                return [row_i, column_i +1]
-
-        # Check above right
-        if row_i > 0 and column_i < len(self.schematic[0]) -1:
-            if is_gear(self.schematic[row_i -1][column_i +1]):
-                return [row_i -1, column_i+1]
-
-        # Check above left
-        if row_i > 0 and column_i > 0:
-            if is_gear(self.schematic[row_i -1][column_i -1]):
-                return [row_i -1, column_i -1]
-
-        # Check below right
-        if row_i < len(self.schematic) -1 and column_i < len(self.schematic[0]) -1:
-            if is_gear(self.schematic[row_i +1][column_i +1]):
-                return [row_i +1, column_i +1]
-
-        # Check below left
-        if row_i < len(self.schematic) -1 and column_i > 0:
-            if is_gear(self.schematic[row_i +1][column_i -1]):
-                return [row_i +1, column_i -1]
-
-        return None
-
     def has_adjacent_symbol(self, row_i, column_i):
         def is_symbol(char):
             if char.isalpha() or char.isdigit() or char == '.':
@@ -133,9 +84,8 @@ class engine():
                         if P1_DEBUG: print(f"row {ri}, column {ci} ({self.schematic[ri][ci]}) has a part adjacent at {adjacent_part_location}, its a {self.schematic[adjacent_part_location[0]][adjacent_part_location[1]]}")
                         part_has_ajacency=True
 
-                    adjacent_gear_location = self.has_adjacent_gear(ri,ci)
-                    if adjacent_gear_location != None:
-                        gear_adjacent_found_for_part = adjacent_gear_location
+                        if self.schematic[adjacent_part_location[0]][adjacent_part_location[1]] == "*":
+                            gear_adjacent_found_for_part = adjacent_part_location
 
                 if not column.isdigit() or ci == len(row) -1:
                     if len(this_int)>0 and part_has_ajacency:
