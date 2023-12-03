@@ -67,7 +67,7 @@ Code from my attempts at the Advent of Code challenges
 |------|--------|--------|
 |  1   | :star: | :star: |
 |  2   | :star: | :star: |
-|  3   |        |        |
+|  3   | :star: | :star: |
 |  4   |        |        |
 |  5   |        |        |
 |  6   |        |        |
