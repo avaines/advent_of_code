@@ -12,6 +12,6 @@ def import_file_single_new_line(input_filename):
 
 def import_file_double_new_line(input_filename):
     with open(input_filename, 'r') as input_file:
-        input = input_file.read().split("\n")
+        input = input_file.read().split("\n\n")
     return input
 

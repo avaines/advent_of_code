@@ -15,7 +15,7 @@ def generate_grid(width, height, char=" "):
 Breadth-first search (BFS) is an algorithm used for tree traversal on graphs or tree like data structures.
 BFS can be easily implemented using recursion and data structures like dictionaries and lists.
 '''
-def breadth_firts_search_grid(grid=[], start_coord=(0,0), wall="#", goal="*"):
+def breadth_first_search_grid(grid=[], start_coord=(0,0), wall="#", goal="*"):
     from collections import deque
     '''
         grid = [
@@ -25,7 +25,7 @@ def breadth_firts_search_grid(grid=[], start_coord=(0,0), wall="#", goal="*"):
             ".....###..",
             "......*..."
         ]
-        breadth_firts_search_grid(grid=grid, start_coord=(0,0))
+        breadth_first_search_grid(grid=grid, start_coord=(0,0))
     '''
     height = len(grid)
     width = len(list(grid[0]))
@@ -44,7 +44,7 @@ def breadth_firts_search_grid(grid=[], start_coord=(0,0), wall="#", goal="*"):
                 seen.add((x2, y2))
 
 
-def breadth_firts_search_graph(graph = {}, starting_node=""):
+def breadth_first_search_graph(graph = {}, starting_node=""):
     '''
         graph = {
             'A' : ['B','C'],
@@ -55,7 +55,7 @@ def breadth_firts_search_graph(graph = {}, starting_node=""):
             'F' : []
         }
 
-        breadth_firts_search_graph(graph, 'A')
+        breadth_first_search_graph(graph, 'A')
     '''
     visited = [starting_node]
     queue   = [starting_node]
