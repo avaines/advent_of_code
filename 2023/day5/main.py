@@ -17,6 +17,7 @@ SAMPLE_FILENAME = "%s/sample.txt" % os.path.dirname(os.path.realpath(__file__))
 class almanac:
     def __init__(self, map):
         self.seeds = map[0].split(": ")[1].split()
+
         self.seeds_to_soil = map[1].split(":\n")[1].splitlines()
         self.soil_to_fertilizer = map[2].split(":\n")[1].splitlines()
         self.fertilizer_to_water = map[3].split(":\n")[1].splitlines()
@@ -27,67 +28,35 @@ class almanac:
 
         self.seed_result_map = collections.defaultdict(dict)
 
-    def process_ranges(self, map):
-        completed_map = dict()
-
-        for row in map:
-            dest_rng_start, src_rng_start, rng_len = row.split()
-            dst_range = [i for i in range(int(dest_rng_start), int(dest_rng_start) + int(rng_len))]
-            src_range = [i for i in range(int(src_rng_start), int(src_rng_start) + int(rng_len))]
-            completed_map.update(dict(zip(src_range, dst_range)))
-
-        return completed_map
-
-
-    def process_all_maps(self):
-        s2s_map = self.process_ranges(self.seeds_to_soil)
-        s2f_map = self.process_ranges(self.soil_to_fertilizer)
-        f2w_map = self.process_ranges(self.fertilizer_to_water)
-        w2l_map = self.process_ranges(self.water_to_light)
-        l2t_map = self.process_ranges(self.light_to_temp)
-        t2h_map = self.process_ranges(self.temp_to_hum)
-        h2l_map = self.process_ranges(self.hum_to_location)
-
-        for seed in self.seeds:
-            tmp_store = {
-                "soil": int(seed),
-                "fertilizer": int(seed),
-                "water": int(seed),
-                "light": int(seed),
-                "temp": int(seed),
-                "humidity": int(seed),
-                "location": int(seed)
-            }
-
-            tmp_store["soil"] = s2s_map[int(seed)] if int(seed) in s2s_map else int(seed)
-            tmp_store["fertilizer"] = s2f_map[int(seed)] if int(seed) in s2f_map else tmp_store["soil"]
-            tmp_store["water"] = f2w_map[tmp_store["fertilizer"]] if tmp_store["fertilizer"] in f2w_map else tmp_store["fertilizer"]
-            tmp_store["light"] = w2l_map[tmp_store["water"]] if tmp_store["water"] in w2l_map else tmp_store["water"]
-            tmp_store["temp"] = l2t_map[tmp_store["light"]] if tmp_store["light"] in l2t_map else tmp_store["light"]
-            tmp_store["humidity"] = t2h_map[tmp_store["temp"]] if tmp_store["temp"] in t2h_map else tmp_store["temp"]
-            tmp_store["location"] = h2l_map[tmp_store["humidity"]] if tmp_store["humidity"] in h2l_map else tmp_store["humidity"]
-
-            self.seed_result_map[int(seed)] = tmp_store
-
-        if P1_DEBUG:
-            for s in list(map(int, self.seeds)):
-                print(f'Seed {s} has soil {self.seed_result_map[s]["soil"]}, fertilizer {self.seed_result_map[s]["fertilizer"]}, water {self.seed_result_map[s]["water"]}, light {self.seed_result_map[s]["light"]}, temp {self.seed_result_map[s]["temp"]}, humidity {self.seed_result_map[s]["humidity"]}, location {self.seed_result_map[s]["location"]}')
-
-
-    def get_lowest_location_numbers(self):
-        lowest_min = None
-
-        for seed in self.seeds:
-            if lowest_min == None: lowest_min = self.seed_result_map[int(seed)]["location"]
-            lowest_min = min(lowest_min, self.seed_result_map[int(seed)]["location"])
-
-        return lowest_min
 
 
 def part1():
-    ALMANAC.process_all_maps()
+    def process_map(map, seed):
+        for entry in map:
+            if seed >= entry[1] and seed < (entry[1] + entry[2]):
+                return seed - entry[1] + entry[0]
+        return seed
 
-    return ALMANAC.get_lowest_location_numbers()
+    # ALMANAC.process_all_maps()
+    merged_maps = [
+        [list(map(int, i.split())) for i in ALMANAC.seeds_to_soil],
+        [list(map(int, i.split())) for i in ALMANAC.soil_to_fertilizer],
+        [list(map(int, i.split())) for i in ALMANAC.fertilizer_to_water],
+        [list(map(int, i.split())) for i in ALMANAC.water_to_light],
+        [list(map(int, i.split())) for i in ALMANAC.light_to_temp],
+        [list(map(int, i.split())) for i in ALMANAC.temp_to_hum],
+        [list(map(int, i.split())) for i in ALMANAC.hum_to_location],
+    ]
+
+    result = []
+    for seed in ALMANAC.seeds:
+        for m in merged_maps:
+            seed = process_map(m, int(seed))
+        result.append(seed)
+
+
+    return min(result)
+
 
 def part2(input):
     if P2_DEBUG: print("Doing Part 2 things")

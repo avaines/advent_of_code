@@ -68,8 +68,8 @@ Code from my attempts at the Advent of Code challenges
 |  1   | :star: | :star: |
 |  2   | :star: | :star: |
 |  3   | :star: | :star: |
-|  4   |        |        |
-|  5   |        |        |
+|  4   | :star: | :star: |
+|  5   | :star: |        |
 |  6   |        |        |
 |  7   |        |        |
 |  8   |        |        |
