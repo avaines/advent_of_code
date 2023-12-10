@@ -10,7 +10,6 @@ def generate_grid(width, height, char=" "):
     return [[char]*width for _ in range(height)]
 
 
-
 '''
 Breadth-first search (BFS) is an algorithm used for tree traversal on graphs or tree like data structures.
 BFS can be easily implemented using recursion and data structures like dictionaries and lists.

@@ -70,8 +70,9 @@ Code from my attempts at the Advent of Code challenges
 |  3   | :star: | :star: |
 |  4   | :star: | :star: |
 |  5   | :star: |        |
-|  6   |        |        |
-|  7   |        |        |
-|  8   |        |        |
-|  9   |        |        |
-|  10  |        |        |
+|  6   | :star: | :star: |
+|  7   | :star: | :star: |
+|  8   | :star: | :star: |
+|  9   | :star: | :star: |
+|  10  | :star: |        |
+|  11  | | |
