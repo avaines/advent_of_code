@@ -8,7 +8,7 @@ from shared import aoc_common, aoc_algorithms
 P1_DEBUG = True
 P2_DEBUG = True
 
-USE_REAL_DATA = False # Loads input.txt when True or sample.txt when False
+USE_REAL_DATA = True # Loads input.txt when True or sample.txt when False
 
 INPUT_FILENAME  = "%s/input.txt" % os.path.dirname(os.path.realpath(__file__))
 SAMPLE_FILENAME = "%s/sample.txt" % os.path.dirname(os.path.realpath(__file__))
@@ -89,7 +89,7 @@ def part1(input):
 def part2(input, pipe_coords):
     fill_grid = aoc_algorithms.generate_grid(len(input[0]), len(input), 0)
     s_position = find_start_s(input)
-    input[s_position[1]][s_position[0]] = "|"
+    input[s_position[1]][s_position[0]] = "-"
 
     for pc in pipe_coords:
         fill_grid[pc[0]][pc[1]] = 1
@@ -99,10 +99,10 @@ def part2(input, pipe_coords):
         inside = False
         for column_i, _ in enumerate(row):
             if fill_grid[row_i][column_i]:
-                if input[row_i][column_i] in ["|", "J", "L"] or input[row_i][column_i] == "S" :
+                if input[row_i][column_i] in ["|", "J", "L"]:
                     inside = not inside
-                else:
-                    counter += inside
+            else:
+                counter += inside
 
     return counter
 
