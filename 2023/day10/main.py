@@ -8,7 +8,7 @@ from shared import aoc_common, aoc_algorithms
 P1_DEBUG = True
 P2_DEBUG = True
 
-USE_REAL_DATA = True # Loads input.txt when True or sample.txt when False
+USE_REAL_DATA = False # Loads input.txt when True or sample.txt when False
 
 INPUT_FILENAME  = "%s/input.txt" % os.path.dirname(os.path.realpath(__file__))
 SAMPLE_FILENAME = "%s/sample.txt" % os.path.dirname(os.path.realpath(__file__))
@@ -31,14 +31,14 @@ move_map = {
     'S': ["n", "s", "w", "e"],
     }
 
-
-def part1(input):
-    # Find the starting coords
-    for row_i, row in enumerate([*input]):
+def find_start_s(grid):
+    for row_i, row in enumerate([*grid]):
         if 'S' in row:
             if P1_DEBUG: print(f"Starting postition found; row {row_i}, column {row.index("S")}")
-            position = (row.index("S"), row_i)
-            break
+            return (row.index("S"), row_i)
+
+def part1(input):
+    position = find_start_s(input)
 
     positions_visited = dict()
     search_queue = [(position, 0)]
@@ -83,20 +83,36 @@ def part1(input):
 
         if P1_DEBUG: print(f", moving to {new} which is a {input[current[0]][current[1]]}")
 
-    return max(positions_visited.values())
+    return max(positions_visited.values()), positions_visited
 
 
-def part2(input):
-    if P2_DEBUG: print(f"Doing Part 2 things")
-    return "part 2 answer"
+def part2(input, pipe_coords):
+    fill_grid = aoc_algorithms.generate_grid(len(input[0]), len(input), 0)
+    s_position = find_start_s(input)
+    input[s_position[1]][s_position[0]] = "|"
+
+    for pc in pipe_coords:
+        fill_grid[pc[0]][pc[1]] = 1
+
+    counter = 0
+    for row_i, row in enumerate(input):
+        inside = False
+        for column_i, _ in enumerate(row):
+            if fill_grid[row_i][column_i]:
+                if input[row_i][column_i] in ["|", "J", "L"] or input[row_i][column_i] == "S" :
+                    inside = not inside
+                else:
+                    counter += inside
+
+    return counter
 
 
 if __name__ == '__main__':
     parsed_input = aoc_common.import_file_as_grid(INPUT_FILENAME if USE_REAL_DATA else SAMPLE_FILENAME)
 
     part_1 = part1(parsed_input)
-    part_2 = part2(parsed_input)
+    part_2 = part2(parsed_input, part_1[1])
 
     print("# # # SOLUTIONS # # #")
-    print("Part1:", part_1 )
+    print("Part1:", part_1[0] )
     print("Part2:", part_2 )
