@@ -76,3 +76,7 @@ Code from my attempts at the Advent of Code challenges
 |  9   | :star: | :star: |
 |  10  | :star: |        |
 |  11  | | |
+|  12  | | |
+|  13  | | |
+|  14  | | |
+|  15  | :star: | |
