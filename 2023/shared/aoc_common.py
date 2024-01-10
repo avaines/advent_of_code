@@ -4,6 +4,35 @@ import sys
 sys.path.append("../")
 from shared import aoc_common
 '''
+import os
+import requests
+
+def get_aoc_puzzle_data(year:int, day:int):
+    # Get the puzzle data for a given puzzle using the cookie
+    #   either enter it on each run or set the ENV VAR AOC_COOKIE
+
+    if not os.path.exists('input.txt'):
+        if "AOC_COOKIE" in os.environ:
+            aoc_cookie = os.getenv("AOC_COOKIE")
+        else:
+            aoc_cookie = input("Enter the value for AOC_COOKIE: ")
+            os.environ['AOC_COOKIE'] = aoc_cookie
+
+        url = f"https://adventofcode.com/{year}/day/{day}/input"
+        response = requests.get(url, cookies={'session': aoc_cookie})
+
+        # Check if the request was successful (status code 200)
+        if response.status_code == 200:
+            # Save the data to input.txt
+            with open('input.txt', 'w') as file:
+                file.write(response.text.rstrip('\n'))
+
+            print("Puzzle input saved to 'input.txt'")
+        else:
+            print("Failed to fetch data from the URL:", response)
+    else:
+        print("'input.txt' already exists. Skipping cookie check and request.")
+
 
 def import_file_single_new_line(input_filename):
     with open(input_filename, 'r') as input_file:
