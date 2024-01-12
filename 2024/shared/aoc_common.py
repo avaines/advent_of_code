@@ -1,3 +1,4 @@
+# pylint: disable-all
 '''
 # Import the shared functions
 import sys
