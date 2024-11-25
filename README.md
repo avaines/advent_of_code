@@ -80,3 +80,8 @@ Code from my attempts at the Advent of Code challenges
 |  13  | | |
 |  14  | | |
 |  15  | :star: | |
+
+## 2024
+| Day  | Part 1 | Part 2 |
+|------|--------|--------|
+|  1   |  |  |
