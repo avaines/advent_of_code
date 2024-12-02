@@ -33,5 +33,5 @@ if __name__ == '__main__':
     part_2 = part2(parsed_input)
 
     print("# # # SOLUTIONS # # #")
-    print("Part1:", part_1 )
-    print("Part2:", part_2 )
+    print("Part 1:", part_1 )
+    print("Part 2:", part_2 )

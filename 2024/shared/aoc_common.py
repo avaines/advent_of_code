@@ -45,13 +45,13 @@ def get_aoc_puzzle_data():
 
 def import_file_single_new_line(input_filename):
     with open(input_filename, 'r') as input_file:
-        input = input_file.read().split("\n")
+        input = [line for line in input_file.read().split("\n") if line.strip()]
     return input
 
 
 def import_file_double_new_line(input_filename):
     with open(input_filename, 'r') as input_file:
-        input = input_file.read().split("\n\n")
+        input = [line for line in input_file.read().split("\n\n") if line.strip()]
     return input
 
 
@@ -59,7 +59,7 @@ def import_file_as_grid(input_filename):
     input_grid=[]
 
     with open(input_filename, 'r') as input_file:
-        input = input_file.read().split("\n")
+        input = [line for line in input_file.read().split("\n") if line.strip()]
 
     for line in input:
         input_grid.append([*line])
