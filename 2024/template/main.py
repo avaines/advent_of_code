@@ -2,6 +2,7 @@
 # Import AOC Common
 import os
 import sys
+import time
 sys.path.append("../")
 from shared import aoc_common, aoc_algorithms
 
@@ -29,9 +30,14 @@ def part2(input):
 if __name__ == '__main__':
     parsed_input = aoc_common.import_file_single_new_line(INPUT_FILENAME if USE_REAL_DATA else SAMPLE_FILENAME)
 
+    start_time_part1 = time.time()
     part_1 = part1(parsed_input)
+    end_time_part1 = time.time()
+
+    start_time_part2 = time.time()
     part_2 = part2(parsed_input)
+    end_time_part2 = time.time()
 
     print("# # # SOLUTIONS # # #")
-    print("Part 1:", part_1 )
-    print("Part 2:", part_2 )
+    print(f"Part 1: {part_1} \t ⏱️ in {end_time_part1 - start_time_part1:.4f} seconds")
+    print(f"Part 2: {part_2} \t ⏱️ in {end_time_part2 - start_time_part2:.4f} seconds")
