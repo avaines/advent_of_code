@@ -70,3 +70,46 @@ def breadth_first_search_graph(graph = {}, starting_node=""):
 
         return visited
 
+def grid_word_search(grid:list[list], word:str, vertical=True, horizontal=True, diagonal=True):
+    ''' function to find the word XMAS in a 'grid' like this:
+        [['M', 'M', 'M', 'S', 'X', 'X', 'M', 'A', 'S', 'M'],
+        ['M', 'S', 'A', 'M', 'X', 'M', 'S', 'M', 'S', 'A'],
+        ['A', 'M', 'X', 'S', 'X', 'M', 'A', 'A', 'M', 'M'],
+        ['M', 'S', 'A', 'M', 'A', 'S', 'M', 'S', 'M', 'X'],
+        ['X', 'M', 'A', 'S', 'A', 'M', 'X', 'A', 'M', 'M'],
+        ['X', 'X', 'A', 'M', 'M', 'X', 'X', 'A', 'M', 'A'],
+        ['S', 'M', 'S', 'M', 'S', 'A', 'S', 'X', 'S', 'S'],
+        ['S', 'A', 'X', 'A', 'M', 'A', 'S', 'A', 'A', 'A'],
+        ['M', 'A', 'M', 'M', 'M', 'X', 'M', 'M', 'M', 'M'],
+        ['M', 'X', 'M', 'X', 'A', 'X', 'M', 'A', 'S', 'X']]
+    '''
+    word_length=len(word)
+    instances_of_word=[]
+
+    directions = []
+    if horizontal: directions.append((0, 1))  # right
+    if horizontal: directions.append((0, -1)) # left
+    if vertical: directions.append((1, 0))    # down
+    if vertical: directions.append((-1, 0))   # up
+    if diagonal: directions.append((1, 1))    # down-right
+    if diagonal: directions.append((1, -1))   # down-left
+    if diagonal: directions.append((-1, 1))   # up-right
+    if diagonal: directions.append((-1, -1))  # up-left
+
+    def is_valid(x, y):
+        return 0 <= x < len(grid) and 0 <= y < len(grid[0])
+
+    for r, row in enumerate(grid):
+        for c, column in enumerate(row):
+            if grid[r][c] == word[0]:  # Match the first letter of the word
+                for dr, dc in directions:  # Explore all 8 directions
+                    match_coords = []
+                    for i in range(word_length):
+                        nr, nc = r + dr * i, c + dc * i
+                        if not is_valid(nr, nc) or grid[nr][nc] != word[i]:
+                            break
+                        match_coords.append((nr, nc))
+                    if len(match_coords) == word_length:  # Full match found
+                        instances_of_word.append(match_coords)
+
+    return instances_of_word
