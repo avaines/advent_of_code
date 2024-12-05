@@ -77,6 +77,9 @@ def product(lst):
 
 
 def three_part_parse_dict(input, first_delim, second_delim):
+    ''' 
+        parse lines like 'Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53' 
+    '''
     output={}
 
     for i in input:
@@ -85,3 +88,30 @@ def three_part_parse_dict(input, first_delim, second_delim):
         output[part_a] = [part_b.split(), part_c.split()]
 
     return output
+
+
+def import_two_part_input(input, first_part_delim=",", second_part_delim=","):
+    '''
+    Where the input is split in to two sections like this, seperated by a double space, each with its own deliminator.
+    `
+        75|13
+        53|13
+
+        75,47,61,53,29
+        97,61,53,29,13
+    `
+    Returns two lists
+    '''
+
+    part1, part2 = import_file_double_new_line(input)
+
+    part1=[x.split(first_part_delim) for x in part1.split('\n')]
+    part2 = [x.split(second_part_delim) for x in part2.split('\n')]
+    return part1, part2
+
+
+def convert_list_of_lists_to_ints(list:list):
+    '''
+    Convert a list of lists of strings to a list of lists of integers. I forget how to do this quickly ever year.
+    '''
+    return [[int(item) for item in sublist] for sublist in list]
