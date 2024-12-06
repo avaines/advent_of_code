@@ -36,15 +36,12 @@ class puzzle:
                     self.guard_on_map = True
                     return (ri,ci)
 
-    def guardInBounds(self):
-        if 0 >= self.guard_position[0] <= len(self.map) and 0 >= self.guard_position <= len(self.map[0]):
-            if P1_DEBUG: print(f"Guard has exited the map at found at map ref {self.guard_position}, traveling {self.guard_direction}")
-            self.guard_on_map = False
 
     def drawPathToConsole(self):
         os.system('cls' if os.name == 'nt' else 'clear')
         for row in self.map:
             print(''.join(row))
+        time.sleep(0.1)
 
     def moveGuard(self):
         if self.guard_on_map:
@@ -56,8 +53,8 @@ class puzzle:
                if P1_DEBUG: print(f"Guard has exited the map at found at map ref {new_guard_location}, traveling {self.guard_direction}")
                self.guard_path_taken.append(self.guard_position)
                self.guard_on_map = False
-            else:
 
+            else:
                 if self.map[new_guard_location[0]][new_guard_location[1]] == "#":
                     match self.guard_direction: # Rotate 'right'
                         case "^": self.guard_direction = ">"
@@ -65,29 +62,40 @@ class puzzle:
                         case "v": self.guard_direction = "<"
                         case "<": self.guard_direction = "^"
 
-                    if P1_DEBUG: print(f"Guard has hit a wall at ({new_guard_location[0]},{new_guard_location[1]}); turning around instead, now facing {self.guard_direction}")
                     self.map[self.guard_position[0]][self.guard_position[1]] = self.guard_direction
                     if self.draw_path: self.drawPathToConsole()
+                    if P1_DEBUG: print(f"Guard has hit a wall at ({new_guard_location[0]},{new_guard_location[1]}); turning around instead, now facing {self.guard_direction}")
 
                 else:
-                    # Part 2 code not working
-                    # if self.guard_position in self.guard_path_taken:  # Part 2
-                    #     next_possible_move_has_been_visited = False
-                    #     match self.guard_direction:
-                    #         case "^":
-                    #             if (self.guard_position[0],self.guard_position[1]+1) in self.guard_path_taken: next_possible_move_has_been_visited = True
-                    #         case ">":
-                    #             if (self.guard_position[0]+1,self.guard_position[1]) in self.guard_path_taken: next_possible_move_has_been_visited = True
-                    #         case "v":
-                    #             if (self.guard_position[0],self.guard_position[1]-1) in self.guard_path_taken: next_possible_move_has_been_visited = True
-                    #         case "<":
-                    #             if (self.guard_position[0]-1,self.guard_position[1]) in self.guard_path_taken: next_possible_move_has_been_visited = True
+                    # Part 2
+                    # Would turning here result in the next move being one we've seen before?
+                    match self.guard_direction: # Rotate 'right'
+                        case "^":
+                            ghost_guard_direction = ">"
+                            ghost_guard_next_position = (self.guard_position[0],self.guard_position[1]+1)
+                            ghost_projected_path=self.map[ghost_guard_next_position[0]][ghost_guard_next_position[1]:]
 
-                    #     if next_possible_move_has_been_visited:
-                    #         self.map[self.guard_position[0] + offset[0]][self.guard_position[1] + offset[1]] = "O"
-                    #         self.p2_walls.append((self.guard_position[0] + offset[0], self.guard_position[1] + offset[1]))
-                    #         if self.draw_path: self.drawPathToConsole()
-                    #         print(f"potential wall at {(self.guard_position[0] + offset[0], self.guard_position[1] + offset[1])}")
+                        case ">":
+                            ghost_guard_direction = "v"
+                            ghost_guard_next_position = (self.guard_position[0]+1,self.guard_position[1])
+                            ghost_projected_path = [self.map[i][ghost_guard_next_position[1]] for i in range(ghost_guard_next_position[0], len(self.map))]
+
+                        case "v":
+                            ghost_guard_direction = "<"
+                            ghost_guard_next_position = (self.guard_position[0],self.guard_position[1]-1)
+                            ghost_projected_path=list(reversed(self.map[ghost_guard_next_position[0]][:ghost_guard_next_position[1]+1]))
+
+                        case "<":
+                            ghost_guard_direction = "^"
+                            ghost_guard_next_position = (self.guard_position[0]-1,self.guard_position[1])
+                            ghost_projected_path = list(reversed([self.map[i][ghost_guard_next_position[1]] for i in range(0, ghost_guard_next_position[0])]))
+
+                    # if we followed the ghosts projected path, there should be an X touching an # somewhere to identify a loop
+                    if any(ghost_projected_path[i] == 'X' and ghost_projected_path[i + 1] == '#' for i in range(len(ghost_projected_path) - 1)):
+                        # self.map[self.guard_position[0] + offset[0]][self.guard_position[1] + offset[1]] = "O"
+                        self.p2_walls.append((self.guard_position[0] + offset[0], self.guard_position[1] + offset[1]))
+                        if self.draw_path: self.drawPathToConsole()
+                        if P2_DEBUG: print(f"Ghost Guard would be back on a previously visited track if they turned at ({new_guard_location[0]},{new_guard_location[1]})")
 
                     self.guard_path_taken.append(self.guard_position)
                     self.map[self.guard_position[0]][self.guard_position[1]] = "X"
@@ -98,11 +106,8 @@ class puzzle:
                     if self.draw_path: self.drawPathToConsole()
                     if P1_DEBUG: print(f"Guard has moved to ({new_guard_location[0]},{new_guard_location[1]}), {len(self.guard_path_taken)} steps taken")
 
-        # print()
-
-
 if __name__ == '__main__':
-    DRAW_IT=True
+    DRAW_IT=False
     parsed_input = aoc_common.import_file_as_grid(INPUT_FILENAME if USE_REAL_DATA else SAMPLE_FILENAME)
 
     start_time_part1 = time.time()
