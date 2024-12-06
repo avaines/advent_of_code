@@ -121,10 +121,10 @@ def grid_word_search(grid:list[list], word:str, vertical=True, horizontal=True, 
 
 def topological_sort_khans(items:list, node_rules:map):
     '''
-    Kahn's Topological sort algorithm: 
+    Kahn's Topological sort algorithm:
         - https://en.wikipedia.org/wiki/Topological_sorting#Kahn
         - https://www.geeksforgeeks.org/topological-sorting-indegree-based-solution/
-    
+
        items = [1, 2, 3, 4, 5, 6]
        node_rules = {1:[2, 3], 2:[4], 3:[4,5], 4:[6], 5:[6], 6:[]}
        topological_sort_khans(items, node_rules) -> will return '[1, 2, 3, 4, 5, 6]'

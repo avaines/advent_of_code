@@ -77,7 +77,7 @@ def product(lst):
 
 
 def three_part_parse_dict(input, first_delim, second_delim):
-    ''' 
+    '''
         parse lines like 'Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53' 
     '''
     output={}
