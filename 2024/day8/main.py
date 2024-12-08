@@ -12,7 +12,7 @@ from itertools import combinations
 P1_DEBUG = True
 P2_DEBUG = True
 
-USE_REAL_DATA = True # Loads input.txt when True or sample.txt when False
+USE_REAL_DATA = False # Loads input.txt when True or sample.txt when False
 
 if USE_REAL_DATA: aoc_common.get_aoc_puzzle_data()
 INPUT_FILENAME  = "%s/input.txt" % os.path.dirname(os.path.realpath(__file__))
@@ -38,6 +38,8 @@ def part1(input):
             for antinode in antinode_pair:
                 # Check this pair is in bounds
                 if 0 <= antinode[0] < len(input) and 0 <= antinode[1] < len(input[0]):
+                    input[antinode[0]][antinode[1]] = "#"
+                    if P1_DEBUG: aoc_common.draw_grid_to_console(input)
                     antinodes.add(antinode)
                 else:
                     print()

@@ -8,6 +8,7 @@ from shared import aoc_common
 import os
 import requests
 import regex
+import time
 
 
 def get_aoc_puzzle_data():
@@ -115,3 +116,11 @@ def convert_list_of_lists_to_ints(list:list):
     Convert a list of lists of strings to a list of lists of integers. I forget how to do this quickly ever year.
     '''
     return [[int(item) for item in sublist] for sublist in list]
+
+
+
+def draw_grid_to_console(grid: list[list[any]], delay=0.1):
+    os.system('cls' if os.name == 'nt' else 'clear')
+    for row in grid:
+        print(''.join(row))
+    time.sleep(delay)
