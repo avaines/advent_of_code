@@ -8,9 +8,9 @@ from shared import aoc_common, aoc_algorithms
 
 
 P1_DEBUG = False
-P2_DEBUG = True
+P2_DEBUG = False
 
-USE_REAL_DATA = False # Loads input.txt when True or sample.txt when False
+USE_REAL_DATA = True # Loads input.txt when True or sample.txt when False
 
 if USE_REAL_DATA: aoc_common.get_aoc_puzzle_data()
 INPUT_FILENAME  = "%s/input.txt" % os.path.dirname(os.path.realpath(__file__))
@@ -96,26 +96,20 @@ def part2(input):
     for unique_file in unique_file_ids:
         spaces = find_group_indexes(parsed_disk_map, ".")
         file_block = find_group_indexes(parsed_disk_map, unique_file)[0]
+        file_block_range = list(range(file_block[0],file_block[1]+1))
 
-        if P2_DEBUG: print(f"file with id {unique_file} is {len(file_block)} blocks long")
-        # find a block of spaces that big
+        if P2_DEBUG: print(f"file with id {unique_file} is {len(file_block_range)} blocks long")
+
         for space in spaces:
-            if len(space) >= len(file_block):
-                for space_idx in range(space[0],space[1]):
-                    parsed_disk_map[space_idx] = unique_file
+            if len(range(space[0],space[1]+1)) >= len(file_block_range) and space[0] < file_block_range[0]: #If there is a space and the space is left most of where it already starts
+                space_range = list(range(space[0],space[1]+1))
+                if P2_DEBUG: print(f"Moving the {unique_file}'s at {file_block} to {space}")
+                for i, file_block_idx in enumerate(file_block_range):
+                        parsed_disk_map[space_range[i]] = unique_file
+                        parsed_disk_map[file_block_idx] = "."
 
-                for file_block_idx in range(file_block[0], file_block[1]+1):
-                    parsed_disk_map[file_block_idx] = "."
-
-                if P2_DEBUG: aoc_common.draw_grid_to_console([''.join(str(i) for i in parsed_disk_map)])
+                if P2_DEBUG: aoc_common.draw_grid_to_console([''.join(str(i) for i in parsed_disk_map)], clear=False)
                 break
-
-
-        print()
-
-
-    print()
-
 
     checksum = 0
     for i, block in enumerate(parsed_disk_map):
