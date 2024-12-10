@@ -102,3 +102,4 @@ Code from my attempts at the Advent of Code challenges
 |  7   | :star: | :star: |
 |  8   | :star: | :star: |
 |  9   | :star: | :star: |
+|  10  | :star: | :star: |

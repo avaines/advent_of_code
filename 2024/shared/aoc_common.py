@@ -118,7 +118,6 @@ def convert_list_of_lists_to_ints(list:list):
     return [[int(item) for item in sublist] for sublist in list]
 
 
-
 def draw_grid_to_console(grid: list[list[any]], delay=0.1, clear=True):
     if clear:
         os.system('cls' if os.name == 'nt' else 'clear')
