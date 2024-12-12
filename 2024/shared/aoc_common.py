@@ -125,3 +125,10 @@ def draw_grid_to_console(grid: list[list[any]], delay=0.1, clear=True):
     for row in grid:
         print(''.join(row))
     time.sleep(delay)
+
+
+def is_in_bounds_of_grid(grid: list[list[any]], coords: tuple[int,int]):
+    if 0 <= coords[0] < len(grid): # Check Rows
+        if 0 <= coords[1] < len(grid[0]): # Check first columns in first row
+            return True
+    return False
