@@ -123,6 +123,7 @@ def draw_grid_to_console(grid: list[list[any]], delay=0.1, clear=True):
         os.system('cls' if os.name == 'nt' else 'clear')
 
     for row in grid:
+        row = [str(i) for i in row]
         print(''.join(row))
     time.sleep(delay)
 
