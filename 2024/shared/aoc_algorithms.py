@@ -30,10 +30,10 @@ def breadth_first_search_grid(grid=[], start_coord=(0,0), wall="#", goal="*"):
         breadth_first_search_grid(grid=grid, start_coord=(0,0))
     '''
     height = len(grid)
-    width = len(list(grid[0]))
+    width = len(grid[0])
 
-    queue = deque([[start_coord]])
-    seen = set([start_coord])
+    queue = deque([start_coord])
+    seen = set(start_coord)
 
     while queue:
         path = queue.popleft()

@@ -133,3 +133,6 @@ def is_in_bounds_of_grid(grid: list[list[any]], coords: tuple[int,int]):
         if 0 <= coords[1] < len(grid[0]): # Check first columns in first row
             return True
     return False
+
+def find_coords_of_char_in_grid(grid: list[list[any]], char):
+    return [(ri, ci) for ri, row in enumerate(grid) for ci, cell in enumerate(row) if cell == char]

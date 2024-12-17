@@ -104,3 +104,9 @@ Code from my attempts at the Advent of Code challenges
 |  9   | :star: | :star: |
 |  10  | :star: | :star: |
 |  11  | :star: | :star: |
+|  12  | :star: | |
+|  13  | :star: | :star: |
+|  14  | :star: | :star: |
+|  15  | :star: | |
+|  16  | :star: | |
+|  17  | :star: | |
