@@ -1,4 +1,4 @@
-# Activate the pyenv environment like 'pyenv activate aoc-3.12'
+# Activate the pyenv environment like 'pyenv activate adventofcode'
 # Install with 'pip install -r requests.txt'
 requests
 regex
