@@ -9,25 +9,35 @@ import requests
 import regex
 
 
+COOKIE_CACHE = "../../COOKIE"
+
+
 def get_aoc_puzzle_data():
     ''' Get the puzzle data for a given puzzle using the cookie
        either enter it on each run or set the ENV VAR AOC_COOKIE '''
-
-    path_extract = regex.search(r'/(\d{4})/day(\d+)', os.path.dirname(__file__))
+    path_extract = regex.search(r'/(\d{4})/Day (\d+).*', os.path.dirname(__file__))
 
     if not os.path.exists('input.txt'):
         year = path_extract.group(1)
         day = path_extract.group(2)
+
         print(f"Downloading input for AOC {year}, day {day}")
 
-        if "AOC_COOKIE" in os.environ:
-            aoc_cookie = os.getenv("AOC_COOKIE")
+        if os.path.exists(COOKIE_CACHE):
+            with open(COOKIE_CACHE, "r") as cache_file:
+                session_cookie = cache_file.read().strip()
+                print("Using cached session cookie.")
         else:
-            aoc_cookie = input("Enter the value for AOC_COOKIE: ")
-            os.environ['AOC_COOKIE'] = aoc_cookie
+            session_cookie = input("Enter your Advent of Code session cookie: ")
+            with open(COOKIE_CACHE, "w") as cache_file:
+                cache_file.write(session_cookie)
+                print("Session cookie cached.")
 
+        # Connect to the Advent of Code API to get puzzle details
         url = f"https://adventofcode.com/{year}/day/{day}/input"
-        response = requests.get(url, cookies={'session': aoc_cookie})
+        headers = {"Cookie": f"session={session_cookie}"}
+
+        response = requests.get(url, headers=headers)
 
         # Check if the request was successful (status code 200)
         if response.status_code == 200:

@@ -1,6 +1,56 @@
-# advent_of_code
+# Advent of Code
 
-Code from my attempts at the Advent of Code challenges
+This repository provides all my attempts at AdventOfCode puzzles, mainly in Python. As this is a once of year thing, this README is to remind me how it all works at the start of the year.
+
+
+## Features
+
+- Automatically creates directories for puzzles if they don't exist.
+- Fetches puzzle details (title and input) using Advent of Code API.
+- Supports setting up and using a Python virtual environment via `pyenv`.
+- Offers a `Makefile` for simplified project management.
+
+## Requirements
+
+- Python 3.12+
+- Pyenv
+
+## Setup
+
+1. Clone the repository.
+2. Install `pyenv` and set up the virtual environment:
+   ```sh
+   make setup
+   ```
+
+## Usage
+
+### Fetch Today's Puzzle
+
+To download and set up today's Advent of Code puzzle (if it's December):
+```sh
+make run
+```
+
+### Fetch a Specific Puzzle
+
+To download and set up a puzzle for a specific year and day:
+```sh
+make target YEAR=2026 DAY=1
+```
+
+### Structure
+
+- Each year's puzzles are stored in `./<year>/<puzzle-title>`.
+- Templates for each puzzle are stored in `./<year>/template/`.
+
+## Notes
+
+- Ensure you have a valid Advent of Code session cookie to fetch puzzle details and inputs.
+- The script will prompt for the session cookie if not provided as a command-line argument.
+
+
+# Progress
 
 ## 2018
 
@@ -107,6 +157,8 @@ Code from my attempts at the Advent of Code challenges
 |  12  | :star: | |
 |  13  | :star: | :star: |
 |  14  | :star: | :star: |
-|  15  | :star: | |
-|  16  | :star: | |
+|  15  | | |
+|  16  | | |
 |  17  | :star: | |
+|  18  | | |
+|  19  | :star: | :star: |

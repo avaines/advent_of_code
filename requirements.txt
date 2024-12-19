@@ -2,3 +2,4 @@
 # Install with 'pip install -r requests.txt'
 requests
 regex
+bs4

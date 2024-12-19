@@ -1,5 +1,6 @@
-.DS_STORE/
 .vscode/settings.json
-.DS_Store
 __pycache__
 **/input.txt
+**/.DS_Store
+.DS_Store
+COOKIE
