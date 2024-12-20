@@ -10,7 +10,7 @@ from shared import aoc_common, aoc_algorithms
 P1_DEBUG = False
 P2_DEBUG = False
 
-USE_REAL_DATA = False # Loads input.txt when True or sample.txt when False
+USE_REAL_DATA = True # Loads input.txt when True or sample.txt when False
 
 if USE_REAL_DATA: aoc_common.get_aoc_puzzle_data()
 INPUT_FILENAME  = "%s/input.txt" % os.path.dirname(os.path.realpath(__file__))
@@ -24,8 +24,19 @@ class intcode_computer:
         self.reg_c = register_c
         self.program = program
         self.instruction_pointer = 0
-        self.output_buffer=[]
+        self.output_buffer = []
         self.finished = False
+
+
+    def reset(self, register_a=None, register_b=None, register_c=None, program=None):
+        if register_a is not None: self.reg_a = register_a
+        if register_b is not None: self.reg_b = register_b
+        if register_c is not None: self.reg_c = register_c
+        if program is not None: self.program = program
+        self.instruction_pointer = 0
+        self.output_buffer = []
+        self.finished = False
+
 
     def combo(self, operand):
         # Combo operands 0 through 3 represent literal values 0 through 3.
@@ -118,9 +129,10 @@ class intcode_computer:
         aoc_common.draw_grid_to_console(
             [
                 self.program,
-                pointer_pos_buffer
+                pointer_pos_buffer,
+                f"A-{self.reg_a},B-{self.reg_b}, C-{self.reg_c}"
             ],0.1,False)
-
+        print()
 
     def compute(self):
         if self.instruction_pointer<=len(self.program)-1:
@@ -181,23 +193,17 @@ def part2(registers, program):
     reg_c = int(registers[2].split(": ")[1])
     program = list(program.split(": ")[1].split(","))
     program = [int(c) for c in program]
-
     computer = intcode_computer(reg_a, reg_b, reg_c, program)
 
     while computer.output_buffer != program:
-        if computer.reg_a == 117440:
-            print()
+        computer.reset(register_a=reg_a)
         while not computer.finished:
             computer.compute()
             if P2_DEBUG: computer.draw()
-        print(computer.reg_a)
-        computer.reg_a += 1
-        computer.reg_b = reg_b
-        computer.reg_c = reg_c
+        reg_a += 1
 
-    output = ",".join([str(o) for o in computer.output_buffer])
-    if P2_DEBUG: print(f"Registers; A-{computer.reg_a}, B-{computer.reg_b}, C-{computer.reg_c}. Output {output}")
-    return output
+    return reg_a
+
 
 if __name__ == '__main__':
     parsed_registers, parsed_program = aoc_common.import_file_double_new_line (INPUT_FILENAME if USE_REAL_DATA else SAMPLE_FILENAME)
