@@ -52,6 +52,17 @@ make target YEAR=2026 DAY=1
 
 # Progress
 
+## 2015
+
+| Day | Part 1 | Part 2 |
+|-----|--------|--------|
+|  1  | :star: | :star: |
+|  2  | :star: | :star: |
+|  3  | :star: | :star: |
+|  4  | :star: | :star: |
+|  5  | :star: | :star: |
+|  6  | :star: | :star: |
+
 ## 2018
 
 | Day | Part 1 | Part 2 |
@@ -162,3 +173,6 @@ make target YEAR=2026 DAY=1
 |  17  | :star: | |
 |  18  | | |
 |  19  | :star: | :star: |
+|  20  | | |
+|  21  | | |
+|  22  | :star: | |

@@ -81,5 +81,7 @@ if __name__ == "__main__":
     input_path = os.path.join(puzzle_dir, "input.txt")
     with open(input_path, "w") as input_file:
         input_file.write(input_response.text)
+        print("Puzzle input saved:")
 
-    print(f"Puzzle input saved to '{input_path}'")
+    print(f"Puzzle directory generated in:")
+    print(puzzle_dir)
