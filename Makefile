@@ -19,10 +19,10 @@ today:
 	cd "$$puzzle_path" && code main.py
 
 # Run the script for a specific puzzle by year and day
-# Usage: make today YEAR=2024 DAY=5
+# Usage: make aoc YEAR=2024 DAY=5
 YEAR ?= 2015
 DAY ?= 1
 aoc:
 	@eval "$$(pyenv init -)" && pyenv activate ${PYTHON_ENV_NAME}
-	@puzzle_path=$$(python support/aoc_helper.py --year $$(date '+%Y') --day $$(date '+%d') | tail -n 1); \
+	@puzzle_path=$$(python support/aoc_helper.py --year $$YEAR --day $$DAY | tail -n 1); \
 	cd "$$puzzle_path" && code main.py
