@@ -52,7 +52,7 @@ def find_regions(grid: list[list[str]]):
     letter_regions = {}
 
     for ri, row in enumerate(grid):
-        for ci, col in enumerate(grid):
+        for ci, col in enumerate(row):
             if not visited[ri][ci]:
                 letter = grid[ri][ci]
                 perimeter, area, perimeter_directions = calculate_perimeter_and_area(grid, ri, ci, letter, visited)
