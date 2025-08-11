@@ -1,0 +1,7 @@
+{
+  "name": "aoc-puzzle",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Aiden Vaines",
+  "license": "ISC"
+}

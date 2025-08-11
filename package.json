@@ -1,0 +1,10 @@
+{
+  "name": "advent_of_code",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com_avaines:avaines/advent_of_code.git"
+  },
+  "author": "Aiden Vaines",
+  "license": "ISC"
+}
