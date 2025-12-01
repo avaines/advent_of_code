@@ -7,17 +7,15 @@ from shared import aoc_common
 '''
 import os
 import requests
-import regex
+import re
 import time
 
-
 COOKIE_CACHE = "../../COOKIE"
-
 
 def get_aoc_puzzle_data():
     ''' Get the puzzle data for a given puzzle using the cookie
        either enter it on each run or set the ENV VAR AOC_COOKIE '''
-    path_extract = regex.search(r'/(\d{4})/Day (\d+).*', os.path.dirname(__file__))
+    path_extract = re.search(r'/(\d{4})/Day (\d+).*', os.path.dirname(__file__))
 
     if not os.path.exists('input.txt'):
         year = path_extract.group(1)
