@@ -182,7 +182,7 @@ make target YEAR=2026 DAY=1
 | Day  | Part 1 | Part 2 |
 |------|--------|--------|
 |  1   | :star: | :star: |
-|  2   |  |  |
+|  2   | :star: | :star: |
 |  3   |  |  |
 |  4   |  |  |
 |  5   |  |  |
