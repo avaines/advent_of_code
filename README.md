@@ -2,6 +2,17 @@
 
 This repository provides all my attempts at AdventOfCode puzzles, mainly in Python. As this is a once of year thing, this README is to remind me how it all works at the start of the year.
 
+## Table of Contents
+
+- [Features](#features)
+- [Requirements](#requirements)
+- [Setup](#setup)
+- [Usage](#usage)
+   - [Fetch Today's Puzzle](#fetch-todays-puzzle)
+   - [Fetch a Specific Puzzle](#fetch-a-specific-puzzle)
+   - [Structure](#structure)
+- [Notes](#notes)
+- [Progress](#progress)
 
 ## Features
 
@@ -20,7 +31,7 @@ This repository provides all my attempts at AdventOfCode puzzles, mainly in Pyth
 1. Clone the repository.
 2. Install `pyenv` and set up the virtual environment:
    ```sh
-   make setup
+   make setup LANGUAGE=python
    ```
 
 ## Usage
@@ -29,14 +40,14 @@ This repository provides all my attempts at AdventOfCode puzzles, mainly in Pyth
 
 To download and set up today's Advent of Code puzzle (if it's December):
 ```sh
-make run
+make today LANGUAGE=python
 ```
 
 ### Fetch a Specific Puzzle
 
 To download and set up a puzzle for a specific year and day:
 ```sh
-make target YEAR=2026 DAY=1
+make aoc LANGUAGE=python YEAR=2026 DAY=1
 ```
 
 ### Structure
@@ -177,13 +188,13 @@ make target YEAR=2026 DAY=1
 |  21  | | |
 |  22  | :star: | |
 
-## 2024
+## 2025
 
 | Day  | Part 1 | Part 2 |
 |------|--------|--------|
 |  1   | :star: | :star: |
 |  2   | :star: | :star: |
-|  3   |  |  |
+|  3   | :star: | :star: |
 |  4   |  |  |
 |  5   |  |  |
 |  6   |  |  |

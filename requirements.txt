@@ -1,5 +1,7 @@
 # Activate the pyenv environment like 'pyenv activate adventofcode'
 # Install with 'pip install -r requests.txt'
-requests
-regex
 bs4
+certifi
+pip-system-certs
+regex
+requests
