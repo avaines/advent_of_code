@@ -195,7 +195,7 @@ make aoc LANGUAGE=python YEAR=2026 DAY=1
 |  1   | :star: | :star: |
 |  2   | :star: | :star: |
 |  3   | :star: | :star: |
-|  4   |  |  |
+|  4   | :star: | :star: |
 |  5   |  |  |
 |  6   |  |  |
 |  7   |  |  |

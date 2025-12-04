@@ -12,6 +12,31 @@ from collections import defaultdict, deque
 def generate_grid(width, height, char=" "):
     return [[char]*width for _ in range(height)]
 
+def get_all_grid_neighbours(row, column, grid, diagonals=False):
+    '''
+    Get all valid neighboring coordinates in a grid.
+    Args:
+        row (int): The row index of the current position.
+        column (int): The column index of the current position.
+        grid (list of list): The grid to check against.
+        diagonals (bool): Whether to include diagonal neighbors.
+    Returns:
+        list of tuple: A list of valid neighboring coordinates.
+    '''
+    neighborIndexes = []
+    neighborVals = []
+    neighbors = {}
+    directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+    if diagonals:
+        directions += [(-1, -1), (-1, 1), (1, -1), (1, 1)]
+
+    for drow, dcol in directions:
+        nrow, ncol = row + drow, column + dcol
+        if 0 <= nrow < len(grid) and 0 <= ncol < len(grid[0]):
+            neighborIndexes.append((nrow, ncol))
+            neighborVals.append(grid[nrow][ncol])
+            neighbors[(nrow, ncol)] = grid[nrow][ncol]
+    return {"indexes": neighborIndexes, "values": neighborVals, "dict": neighbors}
 
 '''
 Breadth-first search (BFS) is an algorithm used for tree traversal on graphs or tree like data structures.
