@@ -9,7 +9,7 @@ from shared import aoc_common, aoc_algorithms
 
 
 P1_DEBUG = False
-P2_DEBUG = False
+P2_DEBUG = True
 
 USE_REAL_DATA = True # Loads input.txt when True or sample.txt when False
 
@@ -35,7 +35,7 @@ def processGrid(grid):
                     accessableRollsOfPaperPositions.append((ri,ci))
 
     for pos in accessableRollsOfPaperPositions:
-        grid[pos[0]][pos[1]] = "x"
+        grid[pos[0]][pos[1]] = "."
 
     return grid, accessableRollsOfPaper
 
@@ -53,8 +53,7 @@ def part2(input):
     while accessableRollsOfPaper !=0:
         input, accessableRollsOfPaper = processGrid(input)
         totalRollsOfPaperRemoved += accessableRollsOfPaper
-        if P2_DEBUG: print(f"Removed {accessableRollsOfPaper} rolls of paper this pass")
-        if P2_DEBUG: aoc_common.draw_grid_to_console(input)
+        if P2_DEBUG: aoc_common.draw_grid_to_console(input, headerText=f"Total rolls of paper removed so far: {totalRollsOfPaperRemoved}", delay=0.5)
 
     return totalRollsOfPaperRemoved
 
