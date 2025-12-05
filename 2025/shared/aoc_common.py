@@ -63,6 +63,30 @@ def import_file_double_new_line(input_filename):
         input = [line for line in input_file.read().split("\n\n") if line.strip()]
     return input
 
+def import_file_two_sections_double_new_line_separator(input_filename):
+    '''
+    Imports a file with two sections separated by a double new line.
+    Returns two lists of strings, one for each section.
+
+    expects input like:
+    ```
+    1-3
+    2-10
+
+    2
+    5
+    8
+    ```
+    '''
+    with open(input_filename, 'r') as input_file:
+        input = [line for line in input_file.read().split("\n\n") if line.strip()]
+
+    part1 = input[0].split("\n")
+    part2 = input[1].split("\n")
+    if part2[-1] == '':
+        part2 = part2[:-1]
+    return part1, part2
+
 
 def import_file_as_grid(input_filename):
     input_grid=[]
