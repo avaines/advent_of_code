@@ -5,7 +5,7 @@ import sys
 import time
 from copy import deepcopy
 sys.path.append("../")
-from shared import aoc_common, aoc_algorithms
+from shared import aoc_common, aoc_algorithms, aoc_grid_tools
 
 
 P1_DEBUG = False
@@ -25,7 +25,7 @@ def processGrid(grid):
         for ci, column in enumerate(row):
             # if current pos is a a roll of paper, get all its neighbours
             if column == "@":
-                x = aoc_algorithms.get_all_grid_neighbours(ri, ci, grid, diagonals=True)
+                x = aoc_grid_tools.get_all_grid_neighbours(ri, ci, grid, diagonals=True)
 
                 # count em, if theres less than 4 rolls of paper its accessible
                 rollsOfPaper = x["values"].count("@")
@@ -53,7 +53,7 @@ def part2(input):
     while accessableRollsOfPaper !=0:
         input, accessableRollsOfPaper = processGrid(input)
         totalRollsOfPaperRemoved += accessableRollsOfPaper
-        if P2_DEBUG: aoc_common.draw_grid_to_console(input, headerText=f"Total rolls of paper removed so far: {totalRollsOfPaperRemoved}", delay=0.5)
+        if P2_DEBUG: aoc_grid_tools.draw_grid_to_console(input, headerText=f"Total rolls of paper removed so far: {totalRollsOfPaperRemoved}", delay=0.1)
 
     return totalRollsOfPaperRemoved
 

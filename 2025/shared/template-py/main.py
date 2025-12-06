@@ -4,7 +4,7 @@ import os
 import sys
 import time
 sys.path.append("../")
-from shared import aoc_common, aoc_algorithms
+from shared import aoc_common, aoc_algorithms, aoc_grid_tools
 
 
 P1_DEBUG = True

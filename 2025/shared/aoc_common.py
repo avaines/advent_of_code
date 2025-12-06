@@ -12,6 +12,7 @@ import time
 
 COOKIE_CACHE = "../../COOKIE"
 
+
 def get_aoc_puzzle_data():
     ''' Get the puzzle data for a given puzzle using the cookie
        either enter it on each run or set the ENV VAR AOC_COOKIE '''
@@ -63,6 +64,7 @@ def import_file_double_new_line(input_filename):
         input = [line for line in input_file.read().split("\n\n") if line.strip()]
     return input
 
+
 def import_file_two_sections_double_new_line_separator(input_filename):
     '''
     Imports a file with two sections separated by a double new line.
@@ -88,16 +90,87 @@ def import_file_two_sections_double_new_line_separator(input_filename):
     return part1, part2
 
 
-def import_file_as_grid(input_filename):
+def import_file_as_grid(input_filename, separator=None):
     input_grid=[]
 
     with open(input_filename, 'r') as input_file:
         input = [line for line in input_file.read().split("\n") if line.strip()]
 
     for line in input:
-        input_grid.append([*line])
+        if separator == ' ':
+            input_grid.append(line.split())
+        elif separator:
+            input_grid.append(line.split(separator))
+        else:
+            input_grid.append([*line])
 
     return input_grid
+
+
+def import_file_as_preformatted_grid(input_filename):
+    '''
+    Imports a file where columns are aligned by position, not delimiters.
+    Preserves column alignment by detecting column positions from the data.
+
+    Example input:
+    ```
+    123 328  51 64 
+     45 64  387 23 
+      6 98  215 314
+    *   +   *   +  
+    ```
+    Returns cells with padding preserved as strings
+    '''
+    with open(input_filename, 'r') as input_file:
+        lines = input_file.read().split("\n")
+        # Remove trailing empty lines but keep lines with only whitespace
+        while lines and not lines[-1].strip():
+            lines.pop()
+
+    if not lines:
+        return []
+
+    # Pad all lines to same length
+    max_len = max(len(line) for line in lines)
+    lines = [line.ljust(max_len) for line in lines]
+
+    # Find positions that are spaces in ALL rows - these are column separators
+    separator_positions = []
+    for pos in range(max_len):
+        if all(line[pos] == ' ' for line in lines):
+            separator_positions.append(pos)
+
+    # Convert separator positions into column ranges
+    col_ranges = []
+    start = 0
+    in_separator = separator_positions and separator_positions[0] == 0
+
+    for pos in range(max_len):
+        is_separator = pos in separator_positions
+
+        if not in_separator and is_separator:
+            # End of a column
+            col_ranges.append((start, pos))
+            in_separator = True
+        elif in_separator and not is_separator:
+            # Start of a new column
+            start = pos
+            in_separator = False
+
+    # Don't forget the last column if it doesn't end with separator 🤦‍♂️
+    if not in_separator:
+        col_ranges.append((start, max_len))
+
+    # Extract columns based on ranges
+    grid = []
+    for line in lines:
+        row = []
+        for start, end in col_ranges:
+            cell = line[start:end].rstrip() # Remove trailing spaces only
+            row.append(cell)
+        grid.append(row)
+
+    return grid
 
 
 def product(lst):
@@ -148,26 +221,3 @@ def convert_list_of_lists_to_ints(list:list):
     Convert a list of lists of strings to a list of lists of integers. I forget how to do this quickly ever year.
     '''
     return [[int(item) for item in sublist] for sublist in list]
-
-
-def draw_grid_to_console(grid: list[list[any]], headerText="", delay=0.1, clear=True):
-    if clear:
-        os.system('cls' if os.name == 'nt' else 'clear')
-
-    if headerText:
-        print(headerText)
-
-    for row in grid:
-        row = [str(i) for i in row]
-        print(''.join(row))
-    time.sleep(delay)
-
-
-def is_in_bounds_of_grid(grid: list[list[any]], coords: tuple[int,int]):
-    if 0 <= coords[0] < len(grid): # Check Rows
-        if 0 <= coords[1] < len(grid[0]): # Check first columns in first row
-            return True
-    return False
-
-def find_coords_of_char_in_grid(grid: list[list[any]], char):
-    return [(ri, ci) for ri, row in enumerate(grid) for ci, cell in enumerate(row) if cell == char]
