@@ -115,6 +115,7 @@ def grid_word_search(grid:list[list], word:str, vertical=True, horizontal=True, 
 
     return instances_of_word
 
+
 def breadth_first_search_grid(grid=[], start_coord=(0,0), wall="#", goal="*"):
     '''
     Breadth-first search (BFS) is an algorithm used for tree traversal on graphs or tree like data structures.
