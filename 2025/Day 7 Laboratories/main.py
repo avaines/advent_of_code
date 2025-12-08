@@ -7,6 +7,7 @@ sys.path.append("../")
 from shared import aoc_common, aoc_algorithms, aoc_grid_tools
 
 P1_DEBUG = False
+P1_ANIMATE=True
 P2_DEBUG = True
 
 USE_REAL_DATA = True # Loads input.txt when True or sample.txt when False
@@ -47,7 +48,7 @@ def fire_lazer(input):
                     next_beams[ci] += current_beams[ci]
                     input[ri][ci] = '|'
 
-            if P1_DEBUG: aoc_grid_tools.draw_grid_to_console(input, delay=0, headerText=f"Total beams {sum(current_beams)} at row {ri}")
+        if P1_ANIMATE: aoc_grid_tools.draw_grid_to_console(input, delay=0.12, headerText=f"Total beams {sum(current_beams)} at row {ri}")
 
         current_beams = next_beams
 
