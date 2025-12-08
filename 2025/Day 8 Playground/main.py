@@ -19,7 +19,6 @@ SAMPLE_FILENAME = "%s/sample.txt" % os.path.dirname(os.path.realpath(__file__))
 
 def calc_euclid_dist(a, b):
     # Calculate Euclidean distance in a cube.
-
     return (a[0]-b[0])**2 + (a[1]-b[1])**2 + (a[2]-b[2])**2
 
 
