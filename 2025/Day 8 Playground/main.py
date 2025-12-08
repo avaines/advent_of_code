@@ -42,14 +42,14 @@ def build_graph(edges, num_nodes):
     return graph
 
 
-def dfs(graph, node, element, visited:set):
+def dfs(graph, nodes, elements, visited:set):
     # Depth-first search (DFS) to find connected elements in a graph
-    visited.add(node)
-    element.append(node)
+    visited.add(nodes)
+    elements.append(nodes)
 
-    for n in graph[node]:
+    for n in graph[nodes]:
         if n not in visited:
-            dfs(graph, n, element, visited)
+            dfs(graph, n, elements, visited)
 
 
 def find_connected_elements(graph):
@@ -59,9 +59,9 @@ def find_connected_elements(graph):
 
     for node in graph:
         if node not in visited:
-            element = []
-            dfs(graph, node, element, visited)
-            connected_elements.append(element)
+            elements = []
+            dfs(graph, node, elements, visited)
+            connected_elements.append(elements)
 
     return connected_elements
 
