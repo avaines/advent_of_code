@@ -5,3 +5,4 @@ certifi
 pip-system-certs
 regex
 requests
+shapely
