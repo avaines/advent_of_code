@@ -5,4 +5,5 @@ certifi
 pip-system-certs
 regex
 requests
+scipy
 shapely

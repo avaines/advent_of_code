@@ -12,9 +12,9 @@ from shapely.geometry import Polygon
 
 
 P1_DEBUG = False
-P2_DEBUG = True
+P2_DEBUG = False
 
-USE_REAL_DATA = False # Loads input.txt when True or sample.txt when False
+USE_REAL_DATA = True # Loads input.txt when True or sample.txt when False
 
 if USE_REAL_DATA: aoc_common.get_aoc_puzzle_data()
 INPUT_FILENAME  = "%s/input.txt" % os.path.dirname(os.path.realpath(__file__))
