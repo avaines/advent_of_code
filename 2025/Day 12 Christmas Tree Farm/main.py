@@ -33,11 +33,6 @@ def part1(presents, bins):
     return len(valid_bins)
 
 
-def part2(presents, bins):
-    if P2_DEBUG: print(f"Doing Part 2 things")
-    return "part 2 answer"
-
-
 def unpack(input):
     # this one is a bit gross.
     presents = {}
@@ -65,10 +60,5 @@ if __name__ == '__main__':
     part_1 = part1(presents, bins)
     end_time_part1 = time.time()
 
-    start_time_part2 = time.time()
-    part_2 = part2(presents, bins)
-    end_time_part2 = time.time()
-
     print("# # # SOLUTIONS # # #")
     print(f"Part 1: {part_1} \t ⏱️ in {end_time_part1 - start_time_part1:.4f} seconds")
-    print(f"Part 2: {part_2} \t ⏱️ in {end_time_part2 - start_time_part2:.4f} seconds")
