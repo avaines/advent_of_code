@@ -1,6 +1,7 @@
 .vscode/settings.json
 __pycache__
-**/input.txt
 **/.DS_Store
+**/input.txt
+**/scrap.py
 .DS_Store
 COOKIE
