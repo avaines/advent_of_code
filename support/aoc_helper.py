@@ -80,26 +80,66 @@ if __name__ == "__main__":
     puzzle_title_slug = puzzle_title.strip("--- ").strip(" ---").replace(":","").strip()
     PUZZLE_DIR = f"{YEAR_DIR}/{puzzle_title_slug}"
 
-    # Check if day exists
-    if os.path.exists(PUZZLE_DIR):
-        print(f"Directory for day {PUZZLE_DIR} already exists. Exiting")
-        sys.exit()
-
-    # Copy template directory to puzzle directory
     match args.language:
         case "python":
             TEMPLATE_DIR = f"{YEAR_DIR}/shared/template-py"
         case "js":
             TEMPLATE_DIR = f"{YEAR_DIR}/shared/template-js"
+        case "go":
+            TEMPLATE_DIR = f"{YEAR_DIR}/shared/template-go"
         case _:
-            TEMPLATE_DIR = f"{YEAR_DIR}/shared/template-py"
+            print(f"Unsupported language: {args.language}")
+            sys.exit(1)
 
     if not os.path.exists(TEMPLATE_DIR):
         print(f"Template directory {TEMPLATE_DIR} does not exist. Exiting.")
         sys.exit()
 
-    shutil.copytree(TEMPLATE_DIR, PUZZLE_DIR)
-    print(f"Copied {args.language} template to {PUZZLE_DIR}")
+    puzzle_dir_exists = os.path.exists(PUZZLE_DIR)
+    if puzzle_dir_exists:
+        print(f"Directory for day {PUZZLE_DIR} already exists.")
+        confirm = input(
+            f"Add {args.language} template to existing directory? [y/N]: "
+        ).strip().lower()
+        if confirm not in {"y", "yes"}:
+            print("Cancelled.")
+            sys.exit()
+
+        conflicts = []
+        for root, _, files in os.walk(TEMPLATE_DIR):
+            for file_name in files:
+                src_path = os.path.join(root, file_name)
+                rel_path = os.path.relpath(src_path, TEMPLATE_DIR)
+                if rel_path == "sample.txt":
+                    continue
+                dest_path = os.path.join(PUZZLE_DIR, rel_path)
+                if os.path.exists(dest_path):
+                    conflicts.append(dest_path)
+
+        if conflicts:
+            print("Cannot continue because these files would be overwritten:")
+            for conflict in conflicts:
+                print(f" - {conflict}")
+            sys.exit(1)
+
+        for root, dirs, files in os.walk(TEMPLATE_DIR):
+            for dir_name in dirs:
+                src_dir = os.path.join(root, dir_name)
+                rel_dir = os.path.relpath(src_dir, TEMPLATE_DIR)
+                os.makedirs(os.path.join(PUZZLE_DIR, rel_dir), exist_ok=True)
+            for file_name in files:
+                src_file = os.path.join(root, file_name)
+                rel_file = os.path.relpath(src_file, TEMPLATE_DIR)
+                if rel_file == "sample.txt" and os.path.exists(os.path.join(PUZZLE_DIR, rel_file)):
+                    continue
+                dest_file = os.path.join(PUZZLE_DIR, rel_file)
+                os.makedirs(os.path.dirname(dest_file), exist_ok=True)
+                shutil.copy2(src_file, dest_file)
+
+        print(f"Copied {args.language} template into existing directory {PUZZLE_DIR}")
+    else:
+        shutil.copytree(TEMPLATE_DIR, PUZZLE_DIR)
+        print(f"Copied {args.language} template to {PUZZLE_DIR}")
 
     # Download puzzle input
     INPUT_URL = f"{PUZZLE_URL}/input"
@@ -109,8 +149,11 @@ if __name__ == "__main__":
         exit()
 
     input_path = os.path.join(PUZZLE_DIR, "input.txt")
-    with open(input_path, "w", encoding="utf-8") as input_file:
-        input_file.write(input_response.text)
-        print("Puzzle input saved:")
+    if os.path.exists(input_path):
+        print(f"Input file already exists at {input_path}. Skipping write.")
+    else:
+        with open(input_path, "w", encoding="utf-8") as input_file:
+            input_file.write(input_response.text)
+            print("Puzzle input saved:")
 
     print(f"Puzzle directory generated in:{PUZZLE_DIR}")

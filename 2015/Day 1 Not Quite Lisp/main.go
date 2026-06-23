@@ -11,21 +11,56 @@ import (
 const (
 	P1_DEBUG      = true
 	P2_DEBUG      = true
-	USE_REAL_DATA = false // Use input.txt when true, sample.txt when false
+	USE_REAL_DATA = true // Use input.txt when true, sample.txt when false
 )
 
 func part1(input []string) string {
-	if P1_DEBUG {
-		fmt.Println("Doing Part 1 things")
+	targetFloor := 0
+
+	for _, char := range input[0] {
+		switch char {
+		case '(':
+			if P1_DEBUG {
+				fmt.Println("Going UP 1 floor")
+			}
+			targetFloor++
+		case ')':
+			if P1_DEBUG {
+				fmt.Println("Going DOWN 1 floor")
+			}
+			targetFloor--
+		}
 	}
-	return "part 1 answer"
+
+	return fmt.Sprintf("%d", targetFloor)
 }
 
 func part2(input []string) string {
-	if P2_DEBUG {
-		fmt.Println("Doing Part 2 things")
+	targetFloor := 0
+
+	for i, char := range input[0] {
+		switch char {
+		case '(':
+			if P2_DEBUG {
+				fmt.Println("Going UP 1 floor")
+			}
+			targetFloor++
+		case ')':
+			if P2_DEBUG {
+				fmt.Println("Going DOWN 1 floor")
+			}
+			targetFloor--
+		}
+
+		if targetFloor == -1 {
+			if P2_DEBUG {
+				fmt.Println("Entering Basement...")
+			}
+			return fmt.Sprintf("%d", i+1)
+		}
 	}
-	return "part 2 answer"
+
+	return "-1"
 }
 
 func main() {
