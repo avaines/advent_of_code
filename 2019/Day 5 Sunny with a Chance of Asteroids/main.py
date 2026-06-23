@@ -19,7 +19,7 @@ SAMPLE_FILENAME = "%s/sample.txt" % os.path.dirname(os.path.realpath(__file__))
 
 
 def part1(input):
-    input_values = [1]  # ship's air conditioner unit
+    input_values = [5]  # ship's thermal radiator controller
     COMPUTER = aoc_intcode_computer.initcode_computer(program=input, input_values=input_values)
     COMPUTER.run()
 
